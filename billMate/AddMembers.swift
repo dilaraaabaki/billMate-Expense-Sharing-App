@@ -1,6 +1,5 @@
 import SwiftUI
 
-// UIActivityViewController wrapper for SwiftUI
 struct ShareSheet: UIViewControllerRepresentable {
     let activityItems: [Any]
     let applicationActivities: [UIActivity]? = nil
@@ -27,7 +26,6 @@ struct AddMembers: View {
                 .fill(Color.clear)
                 .frame(height: 44)
             
-            // Header with time and status indicators
             HStack {
                 Text("9:41")
                     .font(.system(size: 17, weight: .semibold))
@@ -36,7 +34,6 @@ struct AddMembers: View {
                 Spacer()
                 
                 HStack(spacing: 4) {
-                    // Signal bars
                     HStack(spacing: 2) {
                         ForEach(0..<4) { index in
                             RoundedRectangle(cornerRadius: 1)
@@ -45,12 +42,10 @@ struct AddMembers: View {
                         }
                     }
                     
-                    // WiFi icon
                     Image(systemName: "wifi")
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(.black)
                     
-                    // Battery
                     RoundedRectangle(cornerRadius: 2)
                         .fill(Color.black)
                         .frame(width: 24, height: 12)
@@ -63,9 +58,7 @@ struct AddMembers: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 40)
             
-            // Main content
             VStack(alignment: .leading, spacing: 40) {
-                // Group name section
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Grup Adı")
                         .font(.system(size: 20, weight: .medium))
@@ -81,7 +74,6 @@ struct AddMembers: View {
                         )
                 }
                 
-                // Add person section
                 HStack {
                     Text("Kişi Ekle")
                         .font(.system(size: 20, weight: .medium))
@@ -102,10 +94,8 @@ struct AddMembers: View {
             }
             .padding(.horizontal, 20)
             
-            // Bottom button
             VStack {
                 Button(action: {
-                    // Accept and save action
                 }) {
                     Text("Kabul Et ve Kaydol")
                         .font(.system(size: 17, weight: .medium))
@@ -120,7 +110,6 @@ struct AddMembers: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 30)
                 
-                // Home indicator
                 RoundedRectangle(cornerRadius: 2.5)
                     .fill(Color.black)
                     .frame(width: 134, height: 5)

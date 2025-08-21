@@ -41,7 +41,6 @@ struct AnimatedBackgroundView: View {
     }
 }
 
-// Önizleme için ayrı bir struct
 struct AnimatedBackgroundView_Previews: PreviewProvider {
     static var previews: some View {
         AnimatedBackgroundView()
