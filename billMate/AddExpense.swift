@@ -33,7 +33,7 @@ struct AddExpense: View {
     @State private var amount = ""
     @State private var description = ""
     
-    private let categories = ["Food", "Transport", "Shopping", "Utilities", "Entertainment"]
+    private let categories = ["Kira", "Faturalar", "Ortak Giderler", "Diğer"]
 
     var body: some View {
         NavigationView {
