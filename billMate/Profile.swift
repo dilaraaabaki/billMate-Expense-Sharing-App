@@ -23,7 +23,7 @@ struct Profile: View {
         HStack {
             Spacer()
             Text("Profil")
-                .font(.system(size: 18, weight: .semibold))
+                .font(.system(size: 24, weight: .semibold))
             Spacer()
         }
         .padding(.horizontal, 20)
@@ -38,8 +38,8 @@ struct Profile: View {
                 Image(systemName: "person.fill").font(.system(size: 35)).foregroundColor(.white)
             }
             VStack(spacing: 5) {
-                Text("Example Example").font(.system(size: 18, weight: .medium))
-                Text("example@gmail.com").font(.system(size: 14)).foregroundColor(.secondary)
+                Text("Ayşe Yılmaz").font(.system(size: 18, weight: .medium))
+                Text("ayseyilmaz@icloud.com").font(.system(size: 14)).foregroundColor(.secondary)
             }
         }
     }
@@ -67,6 +67,19 @@ struct Profile: View {
             Button(action: { print("Tapped: Gizlilik & Güvenlik") }) {
                 menuItemContent(icon: "lock.shield.fill", iconColor: .blue, title: "Gizlilik & Güvenlik")
             }
+            Button(action: {
+                print("Çıkış Yap tapped")
+            }) {
+                Text("Çıkış Yap")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color(.secondarySystemGroupedBackground))
+                    .cornerRadius(12)
+            }
+            .padding(.horizontal)
+            .padding(.top,20)
         }
         .background(Color(.systemBackground))
         .cornerRadius(12)
