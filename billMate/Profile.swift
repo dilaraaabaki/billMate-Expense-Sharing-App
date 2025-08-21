@@ -3,10 +3,8 @@ import SwiftUI
 struct Profile: View {
     var body: some View {
         VStack(spacing: 0) {
-            // Header
             headerView
             
-            // Profile Content
             ScrollView {
                 VStack(spacing: 30) {
                     profileSection
@@ -18,7 +16,7 @@ struct Profile: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemGroupedBackground))
-        .navigationBarHidden(true) // Hides the default navigation bar for this view
+        .navigationBarHidden(true)
     }
     
     private var headerView: some View {
@@ -48,7 +46,6 @@ struct Profile: View {
     
     private var menuSection: some View {
         VStack(spacing: 0) {
-            // This link now has a valid destination
             NavigationLink(destination: ProfileSettingsView()) {
                 menuItemContent(icon: "gearshape.fill", iconColor: .gray, title: "Profil Ayarları")
             }
@@ -61,7 +58,6 @@ struct Profile: View {
 
             Divider().padding(.leading, 63)
 
-            // This link also now has a valid destination
             NavigationLink(destination: NotificationSettingsView()) {
                 menuItemContent(icon: "bell.fill", iconColor: .red, title: "Bildirimler")
             }
@@ -92,11 +88,10 @@ struct Profile: View {
         .contentShape(Rectangle())
     }
 }
-// MARK: - Preview
+
 struct Profile_Previews: PreviewProvider {
     static var previews: some View {
-        // This was the line that needed to be fixed.
-        // It should be Profile(), not ProfileView().
+
         Profile()
     }
 }

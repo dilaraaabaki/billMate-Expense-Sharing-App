@@ -3,7 +3,6 @@ import SwiftUI
 struct ProfileSettingsView: View {
     var body: some View {
         VStack(spacing: 0) {
-            // Profile Image Section
             VStack {
                 Image(systemName: "person.circle.fill")
                     .font(.system(size: 100))
@@ -30,9 +29,7 @@ struct ProfileSettingsView: View {
             
             Spacer()
             
-            // Logout Button
             Button(action: {
-                // Handle logout action
                 print("Çıkış Yap tapped")
             }) {
                 Text("Çıkış Yap")
@@ -52,7 +49,6 @@ struct ProfileSettingsView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    // Helper function to create each row in the profile info section
     private func profileInfoRow(title: String, value: String, isSecure: Bool = false) -> some View {
         HStack {
             Text(title)
@@ -70,7 +66,7 @@ struct ProfileSettingsView: View {
                 .foregroundColor(Color(.systemGray3))
         }
         .padding()
-        .contentShape(Rectangle()) // Make the whole row tappable
+        .contentShape(Rectangle()) 
     }
 }
 

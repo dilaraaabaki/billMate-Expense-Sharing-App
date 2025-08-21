@@ -9,9 +9,7 @@ struct LoginView: View {
         VStack(spacing: 0) {
             Spacer()
             
-            // Main content
             VStack(spacing: 30) {
-                // Welcome message
                 VStack(spacing: 8) {
                     Text("Hoşgeldin! Evini kontrol")
                         .font(.system(size: 24, weight: .medium))
@@ -24,9 +22,7 @@ struct LoginView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 20)
                 
-                // Form fields
                 VStack(spacing: 16) {
-                    // Email field
                     TextField("Email", text: $email)
                         .font(.system(size: 16))
                         .keyboardType(.emailAddress)
@@ -38,7 +34,6 @@ struct LoginView: View {
                                 .fill(Color.gray.opacity(0.1))
                         )
                     
-                    // Password field with visibility toggle
                     HStack {
                         if isPasswordVisible {
                             TextField("Şifre", text: $password)
@@ -65,11 +60,9 @@ struct LoginView: View {
                 }
                 .padding(.horizontal, 20)
                 
-                // Forgot password link
                 HStack {
                     Spacer()
                     Button(action: {
-                        // Forgot password action
                     }) {
                         Text("Şifremi Unuttum?")
                             .font(.system(size: 14))
@@ -78,9 +71,7 @@ struct LoginView: View {
                 }
                 .padding(.horizontal, 20)
                 
-                // Login button
                 Button(action: {
-                    // Login action
                 }) {
                     Text("Giriş Yap")
                         .font(.system(size: 16, weight: .medium))
@@ -98,14 +89,12 @@ struct LoginView: View {
             Spacer()
             Spacer()
             
-            // Sign up link
             HStack {
                 Text("Hesabın yok mu?")
                     .font(.system(size: 14))
                     .foregroundColor(.gray)
                 
                 Button(action: {
-                    // Navigate to register
                 }) {
                     Text("Kayıt Ol")
                         .font(.system(size: 14, weight: .medium))
@@ -114,7 +103,6 @@ struct LoginView: View {
             }
             .padding(.bottom, 30)
             
-            // Home indicator
             RoundedRectangle(cornerRadius: 2.5)
                 .fill(Color.black)
                 .frame(width: 134, height: 5)

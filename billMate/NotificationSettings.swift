@@ -27,10 +27,8 @@ struct NotificationSettingsView: View {
     }
 }
 
-// MARK: - Preview
 struct NotificationSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        // Embed in NavigationView for previewing the title
         NavigationView {
             NotificationSettingsView()
         }

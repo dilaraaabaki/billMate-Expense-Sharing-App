@@ -8,9 +8,7 @@ struct OTPVerificationView: View {
         VStack(spacing: 0) {
             Spacer()
             
-            // Main content
             VStack(spacing: 40) {
-                // Title and description
                 VStack(spacing: 16) {
                     Text("Kod Doğrulaması")
                         .font(.system(size: 28, weight: .bold))
@@ -25,7 +23,6 @@ struct OTPVerificationView: View {
                 }
                 .padding(.horizontal, 20)
                 
-                // OTP Input Fields
                 HStack(spacing: 16) {
                     ForEach(0..<3, id: \.self) { index in
                         OTPInputField(
@@ -43,9 +40,7 @@ struct OTPVerificationView: View {
                 }
                 .padding(.horizontal, 20)
                 
-                // Verify button
                 Button(action: {
-                    // Verify OTP action
                     let fullCode = otpCode.joined()
                     print("Verifying OTP: \(fullCode)")
                 }) {
@@ -65,14 +60,12 @@ struct OTPVerificationView: View {
             Spacer()
             Spacer()
             
-            // Resend code link
             HStack {
                 Text("Kodu alamadınız mı?")
                     .font(.system(size: 14))
                     .foregroundColor(.gray)
                 
                 Button(action: {
-                    // Resend code action
                 }) {
                     Text("Tekrar Gönder")
                         .font(.system(size: 14, weight: .medium))
@@ -81,7 +74,6 @@ struct OTPVerificationView: View {
             }
             .padding(.bottom, 30)
             
-            // Home indicator
             RoundedRectangle(cornerRadius: 2.5)
                 .fill(Color.black)
                 .frame(width: 134, height: 5)
@@ -90,13 +82,11 @@ struct OTPVerificationView: View {
         .background(Color(.systemGray6))
         .ignoresSafeArea()
         .onAppear {
-            // Auto-focus first field when view appears
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 focusedField = 0
             }
         }
         .onTapGesture {
-            // Tap anywhere to focus first empty field or last field
             if let emptyIndex = otpCode.firstIndex(where: { $0.isEmpty }) {
                 focusedField = emptyIndex
             } else {
@@ -106,19 +96,16 @@ struct OTPVerificationView: View {
     }
     
     private func handleTextChange(at index: Int, oldValue: String, newValue: String) {
-        // Limit to single digit
         if newValue.count > 1 {
             otpCode[index] = String(newValue.prefix(1))
         }
         
-        // Auto-advance to next field
         if !newValue.isEmpty && index < 2 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                 focusedField = index + 1
             }
         }
         
-        // Auto-move back if deleting
         if newValue.isEmpty && !oldValue.isEmpty && index > 0 {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                 focusedField = index - 1
