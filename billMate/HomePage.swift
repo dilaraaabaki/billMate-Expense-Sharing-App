@@ -76,7 +76,6 @@ struct HomePage: View {
                 }
             }
             .background(Color(.systemGroupedBackground))
-            .navigationTitle("Anasayfa")
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showAllExpenses) {
                 TumMasraflarView(transactions: transactions)
@@ -86,6 +85,8 @@ struct HomePage: View {
     
     private var chartSection: some View {
         VStack(spacing: 15) {
+            Spacer()
+                    .frame(height: 40)
             ZStack {
                 Chart(expenseData) { data in
                     SectorMark(angle: .value("Amount", data.amount), innerRadius: .ratio(0.75))
@@ -94,7 +95,7 @@ struct HomePage: View {
                 .frame(height: 200)
                 VStack {
                     Text("Toplam Harcama").font(.subheadline).foregroundColor(.secondary)
-                    Text("8.950,00 TL").font(.title2).bold()
+                    Text("7.200,00 TL").font(.title2).bold()
                 }
             }
             Button("Tümünü Gör") {
@@ -184,7 +185,7 @@ struct BottomNavigationBar: View {
                 Image(systemName: "plus").font(.system(size: 26, weight: .medium)).foregroundColor(.white)
             }
         }
-        .offset(y: -20) // DÜZELTME: Offset'i biraz azalttık
+        .offset(y: -20)
         .frame(maxWidth: .infinity)
     }
 }
