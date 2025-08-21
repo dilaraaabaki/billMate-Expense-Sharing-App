@@ -46,8 +46,8 @@ struct GroupInviteCodeView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 52)
                         .background(
-                            RoundedRectangle(cornerRadius: 26)
-                                .fill(Color.yellow.opacity(0.7))
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.orange.opacity(0.7))
                         )
                 }
                 .padding(.horizontal, 20)
