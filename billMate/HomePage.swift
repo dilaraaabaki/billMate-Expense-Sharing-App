@@ -165,8 +165,8 @@ struct BottomNavigationBar: View {
             navButton(icon: "person", tab: 4)
         }
         .padding(.top, 12)
-        .frame(height: 85, alignment: .top) // DÜZELTME: Sabit yükseklik verdik
-        .background(.thinMaterial) // DÜZELTME: Modern bir arka plan efekti
+        .frame(height: 85, alignment: .top)
+        .background(.white)
     }
     
     private func navButton(icon: String, tab: Int) -> some View {
@@ -181,8 +181,8 @@ struct BottomNavigationBar: View {
     private func plusButton() -> some View {
         Button(action: { selectedTab = 2 }) {
             ZStack {
-                Circle().fill(Color.accentColor).frame(width: 56, height: 56).shadow(radius: 4)
-                Image(systemName: "plus").font(.system(size: 26, weight: .medium)).foregroundColor(.white)
+                Circle().fill(Color.orange).frame(width: 64, height: 64).shadow(radius: 4)
+                Image(systemName: "plus").font(.system(size: 32, weight: .medium)).foregroundColor(.white)
             }
         }
         .offset(y: -20)
