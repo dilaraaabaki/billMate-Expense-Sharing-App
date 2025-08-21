@@ -1,14 +1,15 @@
 import SwiftUI
 import Charts
 
-struct ExpenseData {
+// MARK: - Veri Modelleri
+struct ExpenseData: Identifiable {
     let id = UUID()
     let category: String
     let amount: Double
     let color: Color
 }
 
-struct TransactionItem {
+struct TransactionItem: Identifiable {
     let id = UUID()
     let name: String
     let amount: String
@@ -17,245 +18,37 @@ struct TransactionItem {
     let userName: String
 }
 
-struct BottomNavigationBar: View {
-    @Binding var selectedTab: Int
+struct ContentView: View {
+    @State private var selectedTab = 0
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Button(action: { selectedTab = 0 }) {
-                    VStack(spacing: 4) {
-                        Image(systemName: selectedTab == 0 ? "house.fill" : "house")
-                            .font(.system(size: 22))
-                            .foregroundColor(selectedTab == 0 ? .blue : .gray)
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                
-                Button(action: { selectedTab = 1 }) {
-                    VStack(spacing: 4) {
-                        Image(systemName: "magnifyingglass")
-                            .font(.system(size: 22))
-                            .foregroundColor(selectedTab == 1 ? .blue : .gray)
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                
-                Button(action: { selectedTab = 2 }) {
-                    ZStack {
-                        Circle()
-                            .fill(Color.white)
-                            .frame(width: 56, height: 56)
-                            .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-                        
-                        Image(systemName: "plus")
-                            .font(.system(size: 24, weight: .medium))
-                            .foregroundColor(.black)
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                
-                Button(action: { selectedTab = 3 }) {
-                    VStack(spacing: 4) {
-                        Image(systemName: selectedTab == 3 ? "gearshape.fill" : "gearshape")
-                            .font(.system(size: 22))
-                            .foregroundColor(selectedTab == 3 ? .blue : .gray)
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                
-                Button(action: { selectedTab = 4 }) {
-                    VStack(spacing: 4) {
-                        Image(systemName: selectedTab == 4 ? "person.fill" : "person")
-                            .font(.system(size: 22))
-                            .foregroundColor(selectedTab == 4 ? .blue : .gray)
-                    }
-                }
-                .frame(maxWidth: .infinity)
+        mainContent
+            .overlay(alignment: .bottom) {
+                BottomNavigationBar(selectedTab: $selectedTab)
             }
-            .padding(.top, 12)
-            .padding(.horizontal, 20)
-            .background(Color(.systemGray6))
-            
-            RoundedRectangle(cornerRadius: 3)
-                .fill(Color.black)
-                .frame(width: 134, height: 5)
-                .padding(.top, 8)
-                .padding(.bottom, 8)
-        }
-        .background(Color(.systemGray6))
-    }
-}
-
-struct TumMasraflarView: View {
-    @Environment(\.presentationMode) var presentationMode
-    let transactions: [TransactionItem]
-    @State private var showingFilter = false
-    
-    var body: some View {
-        VStack(spacing: 0) {
-            headerWithFilter
-            dateRangeView
-            
-            ScrollView {
-                LazyVStack(spacing: 8) {
-                    ForEach(transactions, id: \.id) { transaction in
-                        expenseRow(transaction)
-                    }
-                }
-                .padding(.horizontal, 16)
-                .padding(.top, 16)
-                .padding(.bottom, 100) // Space for bottom navbar
-            }
-        }
-        .background(Color(.systemGroupedBackground))
-        .navigationBarHidden(true)
+            .ignoresSafeArea(.all, edges: .bottom)
     }
     
-    private var headerWithFilter: some View {
-        HStack {
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }) {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(.blue)
-                    .font(.title2)
-            }
-            
-            Spacer()
-            
-            Text("Tüm Masraflar")
-                .font(.title2)
-                .fontWeight(.semibold)
-            
-            Spacer()
-            
-            Button(action: {
-                showingFilter.toggle()
-            }) {
-                Image(systemName: "line.3.horizontal.decrease")
-                    .foregroundColor(.blue)
-                    .font(.title2)
+    @ViewBuilder
+    private var mainContent: some View {
+        Group {
+            switch selectedTab {
+            case 0:
+                HomePage()
+            case 1:
+                SearchView()
+            case 2:
+                AddExpenseView()
+            case 3:
+                SettingsView()
+            case 4:
+                ProfileView()
+            default:
+                HomePage()
             }
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 15)
-        .background(Color(.systemBackground))
-    }
-    
-    private var dateRangeView: some View {
-        HStack {
-            Text("Kasım 2024 - Aralık 2025")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-            
-            Spacer()
-        }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 10)
-        .background(Color(.systemBackground))
-        .shadow(color: .black.opacity(0.05), radius: 1, x: 0, y: 1)
-    }
-    
-    private func expenseRow(_ transaction: TransactionItem) -> some View {
-        HStack(spacing: 12) {
-            ZStack {
-                Circle()
-                    .fill(Color(.systemGray5))
-                    .frame(width: 45, height: 45)
-                
-                Text(transaction.userInitials)
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
-            }
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(transaction.name)
-                    .font(.body)
-                    .fontWeight(.medium)
-                    .foregroundColor(.primary)
-                
-                Text(transaction.amount)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-            }
-            
-            Spacer()
-            
-            Button(action: {}) {
-                Text("Detay")
-                    .font(.caption)
-                    .foregroundColor(.blue)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color.blue.opacity(0.1))
-                    .cornerRadius(6)
-            }
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
-        .background(transaction.color)
-        .cornerRadius(12)
     }
 }
-
-struct SearchView: View {
-    var body: some View {
-        VStack {
-            Text("Arama")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemGroupedBackground))
-        .navigationBarHidden(true)
-    }
-}
-
-struct AddExpenseView: View {
-    var body: some View {
-        VStack {
-            Text("Masraf Ekle")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemGroupedBackground))
-        .navigationBarHidden(true)
-    }
-}
-
-struct SettingsView: View {
-    var body: some View {
-        VStack {
-            Text("Ayarlar")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemGroupedBackground))
-        .navigationBarHidden(true)
-    }
-}
-
-struct ProfileView: View {
-    var body: some View {
-        VStack {
-            Text("Profil")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.systemGroupedBackground))
-        .navigationBarHidden(true)
-    }
-}
-
 struct HomePage: View {
     @State private var showAllExpenses = false
     @State private var expenseData = [
@@ -264,228 +57,166 @@ struct HomePage: View {
         ExpenseData(category: "Ortak Giderler", amount: 6.9, color: .blue.opacity(0.6)),
         ExpenseData(category: "Diğer", amount: 4.2, color: .pink.opacity(0.6))
     ]
-    
     @State private var transactions = [
-        TransactionItem(name: "Market Alışverişi", amount: "200,00 TL", color: .green.opacity(0.3), userInitials: "MA", userName: "Mehmet Ali"),
-        TransactionItem(name: "Ocak Ayı Kira", amount: "5.500,00 TL", color: .yellow.opacity(0.3), userInitials: "AY", userName: "Ayşe Yılmaz"),
-        TransactionItem(name: "Doğalgaz Faturası", amount: "500,00 TL", color: .blue.opacity(0.3), userInitials: "FK", userName: "Fatma Kaya"),
-        TransactionItem(name: "Lambader alışverişi", amount: "500,00 TL", color: .purple.opacity(0.3), userInitials: "HS", userName: "Hasan Sözen"),
-        TransactionItem(name: "Manav Alışverişi", amount: "200,00 TL", color: .green.opacity(0.3), userInitials: "EA", userName: "Elif Arslan"),
-        TransactionItem(name: "Benzin", amount: "400,00 TL", color: .red.opacity(0.3), userInitials: "BB", userName: "Bülent Baki"),
-        TransactionItem(name: "Kahve", amount: "150,00 TL", color: .brown.opacity(0.3), userInitials: "SB", userName: "Selin Başak"),
-        TransactionItem(name: "Kitap", amount: "80,00 TL", color: .blue.opacity(0.3), userInitials: "DA", userName: "Deniz Ak"),
-        TransactionItem(name: "Sinema", amount: "120,00 TL", color: .purple.opacity(0.3), userInitials: "BT", userName: "Burak Tekin"),
-        TransactionItem(name: "Spor Salonu", amount: "300,00 TL", color: .orange.opacity(0.3), userInitials: "NY", userName: "Nazlı Yurt")
+        TransactionItem(name: "Market Alışverişi", amount: "200,00 TL", color: .green.opacity(0.1), userInitials: "MA", userName: "Mehmet Ali"),
+        TransactionItem(name: "Ocak Ayı Kira", amount: "5.500,00 TL", color: .yellow.opacity(0.1), userInitials: "AY", userName: "Ayşe Yılmaz")
     ]
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                headerView
-                
-                chartSection
-                    .padding(.horizontal, 20)
-                    .padding(.top, 20)
-                
-                transactionsSection
-                    .padding(.top, 30)
-                    .padding(.bottom, 100)
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 20) {
+                    chartSection
+                        .padding(.horizontal)
+                    
+                    transactionsSection
+                        .padding(.horizontal)
+                    
+                    Spacer().frame(height: 100)
+                }
+            }
+            .background(Color(.systemGroupedBackground))
+            .navigationTitle("Anasayfa")
+            .navigationBarTitleDisplayMode(.inline)
+            .sheet(isPresented: $showAllExpenses) {
+                TumMasraflarView(transactions: transactions)
             }
         }
-        .background(Color(.systemGroupedBackground))
-        .navigationBarHidden(true)
-        .sheet(isPresented: $showAllExpenses) {
-            TumMasraflarView(transactions: transactions)
-        }
-    }
-    
-    private var headerView: some View {
-        HStack {
-            Button(action: {}) {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(.blue)
-                    .font(.title2)
-            }
-            
-            Spacer()
-            
-            Text("Anasayfa")
-                .font(.title2)
-                .fontWeight(.medium)
-            
-            Spacer()
-            
-            Button(action: {}) {
-                Image(systemName: "trash")
-                    .foregroundColor(.blue)
-                    .font(.title2)
-            }
-        }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 10)
-        .background(Color(.systemBackground))
     }
     
     private var chartSection: some View {
         VStack(spacing: 15) {
-            // Pie Chart
             ZStack {
-                Chart(expenseData, id: \.category) { data in
-                    SectorMark(
-                        angle: .value("Amount", data.amount),
-                        innerRadius: .ratio(0.4),
-                        outerRadius: .ratio(0.8)
-                    )
-                    .foregroundStyle(data.color)
+                Chart(expenseData) { data in
+                    SectorMark(angle: .value("Amount", data.amount), innerRadius: .ratio(0.75))
+                        .foregroundStyle(data.color)
                 }
                 .frame(height: 200)
-                
-                // Center text
                 VStack {
-                    Button(action: {
-                        showAllExpenses = true
-                    }) {
-                        Text("Tümünü Gör")
-                            .font(.caption)
-                            .foregroundColor(.blue)
-                    }
+                    Text("Toplam Harcama").font(.subheadline).foregroundColor(.secondary)
+                    Text("8.950,00 TL").font(.title2).bold()
                 }
             }
+            Button("Tümünü Gör") {
+                showAllExpenses = true
+            }
+            .font(.caption).fontWeight(.medium)
             
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 10) {
-                ForEach(expenseData, id: \.category) { data in
+                ForEach(expenseData) { data in
                     HStack(spacing: 8) {
-                        Circle()
-                            .fill(data.color)
-                            .frame(width: 12, height: 12)
-                        
-                        Text(data.category)
-                            .font(.caption)
-                            .foregroundColor(.primary)
-                        
+                        Circle().fill(data.color).frame(width: 18, height: 18)
+                        Text(data.category).font(.caption)
                         Spacer()
-                        
-                        Text("\(data.amount, specifier: "%.1f")%")
-                            .font(.caption)
-                            .fontWeight(.medium)
-                            .foregroundColor(.secondary)
+                        Text("\(data.amount, specifier: "%.1f")%").font(.caption).fontWeight(.medium).foregroundColor(.secondary)
                     }
                 }
             }
-            .padding(.horizontal, 10)
         }
-        .padding(20)
+        .padding()
         .background(Color(.systemBackground))
         .cornerRadius(15)
     }
     
     private var transactionsSection: some View {
-        LazyVStack(spacing: 12) {
-            ForEach(transactions, id: \.id) { transaction in
-                transactionRow(transaction)
+        VStack {
+            HStack {
+                Text("Son İşlemler").font(.headline)
+                Spacer()
+            }
+            LazyVStack(spacing: 12) {
+                ForEach(transactions) { transactionRow($0) }
             }
         }
-        .padding(.horizontal, 20)
     }
     
     private func transactionRow(_ transaction: TransactionItem) -> some View {
         HStack(spacing: 15) {
-            // User Profile Circle
             ZStack {
-                Circle()
-                    .fill(transaction.color)
-                    .frame(width: 50, height: 50)
-                
-                Text(transaction.userInitials)
-                    .font(.body)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.primary)
+                Circle().fill(transaction.color.opacity(0.5)).frame(width: 50, height: 50)
+                Text(transaction.userInitials).fontWeight(.semibold)
             }
-            
             VStack(alignment: .leading, spacing: 4) {
-                Text(transaction.name)
-                    .font(.body)
-                    .fontWeight(.medium)
-                    .foregroundColor(.primary)
-                
-                HStack(spacing: 8) {
-                    Text(transaction.userName)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    
-                    Circle()
-                        .fill(Color.secondary)
-                        .frame(width: 3, height: 3)
-                    
-                    Text(transaction.amount)
-                        .font(.caption)
-                        .fontWeight(.medium)
-                        .foregroundColor(.secondary)
-                }
+                Text(transaction.name).fontWeight(.medium)
+                Text(transaction.userName).font(.caption).foregroundColor(.secondary)
             }
-            
             Spacer()
-            
-            Button(action: {}) {
-                Text("Detay")
-                    .font(.caption)
-                    .foregroundColor(.blue)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(Color.blue.opacity(0.1))
-                    .cornerRadius(8)
-            }
+            Text(transaction.amount).fontWeight(.medium)
         }
-        .padding(15)
+        .padding()
         .background(Color(.systemBackground))
         .cornerRadius(12)
-        .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
     }
 }
-
-struct ContentView: View {
-    @State private var selectedTab = 0
+struct SearchView: View { var body: some View { Text("Arama Sayfası") } }
+struct AddExpenseView: View { var body: some View { Text("Masraf Ekle Sayfası") } }
+struct SettingsView: View { var body: some View { Text("Ayarlar Sayfası") } }
+struct ProfileView: View { var body: some View { Text("Profil Sayfası") } }
+struct BottomNavigationBar: View {
+    @Binding var selectedTab: Int
     
     var body: some View {
-        ZStack {
-            Group {
-                switch selectedTab {
-                case 0:
-                    HomePage()
-                case 1:
-                    SearchView()
-                case 2:
-                    AddExpenseView()
-                case 3:
-                    SettingsView()
-                case 4:
-                    ProfileView()
-                default:
-                    HomePage()
+        HStack(alignment: .top) {
+            navButton(icon: "house", tab: 0)
+            navButton(icon: "magnifyingglass", tab: 1)
+            plusButton()
+            navButton(icon: "gearshape", tab: 3)
+            navButton(icon: "person", tab: 4)
+        }
+        .padding(.top, 12)
+        .frame(height: 85, alignment: .top) // DÜZELTME: Sabit yükseklik verdik
+        .background(.thinMaterial) // DÜZELTME: Modern bir arka plan efekti
+    }
+    
+    private func navButton(icon: String, tab: Int) -> some View {
+        Button(action: { selectedTab = tab }) {
+            Image(systemName: selectedTab == tab ? "\(icon).fill" : icon)
+                .font(.system(size: 24))
+                .foregroundColor(selectedTab == tab ? .accentColor : .gray)
+                .frame(maxWidth: .infinity)
+        }
+    }
+    
+    private func plusButton() -> some View {
+        Button(action: { selectedTab = 2 }) {
+            ZStack {
+                Circle().fill(Color.accentColor).frame(width: 56, height: 56).shadow(radius: 4)
+                Image(systemName: "plus").font(.system(size: 26, weight: .medium)).foregroundColor(.white)
+            }
+        }
+        .offset(y: -20) // DÜZELTME: Offset'i biraz azalttık
+        .frame(maxWidth: .infinity)
+    }
+}
+
+struct TumMasraflarView: View {
+    @Environment(\.dismiss) var dismiss
+    let transactions: [TransactionItem]
+    
+    var body: some View {
+        NavigationStack {
+            List(transactions) { transaction in
+                HStack {
+                    Text(transaction.userInitials).padding(10).background(Circle().fill(transaction.color.opacity(0.3)))
+                    VStack(alignment: .leading) {
+                        Text(transaction.name)
+                        Text(transaction.userName).font(.caption).foregroundColor(.secondary)
+                    }
+                    Spacer()
+                    Text(transaction.amount)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-            VStack {
-                Spacer()
-                BottomNavigationBar(selectedTab: $selectedTab)
+            .navigationTitle("Tüm Masraflar")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Kapat") { dismiss() }
+                }
             }
-            .ignoresSafeArea(.keyboard)
-        }
-        .ignoresSafeArea(.all, edges: .bottom)
-    }
-}
-
-struct HomePage_App: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
         }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+#Preview {
+    ContentView()
 }

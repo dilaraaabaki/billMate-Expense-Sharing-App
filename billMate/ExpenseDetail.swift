@@ -14,7 +14,7 @@ struct Expense {
 
 let sampleExpense = Expense(
     title: "Masraf Detayları",
-    subTitle: "Example",
+    subTitle: "Kira Ödemesi",
     category: "Kira",
     amount: "5.500,00 TL",
     date: "27/12/2024",

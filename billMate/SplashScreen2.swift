@@ -1,54 +1,80 @@
-//
-//  SplashScreen2.swift
-//  billMate
-//
-//  Created by Dilara Baki on 19.08.2025.
-//
+// SplashScreen2.swift
 
 import SwiftUI
 
 struct SplashScreen2: View {
+    @Environment(\.dismiss) var dismiss
+    @State private var isSplashScreen3Active = false
+
     var body: some View {
         VStack(spacing: 20) {
             
-                    Text("Masrafları Adil Bir Şekilde Paylaşın !")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.primary)
-                        .padding(.horizontal)
+            Spacer(minLength: 40)
             
-                    Text("Ev arkadaşlarınızla masrafları paylaşın ve herkes ne kadar ödediğini görsün")
-                        .font(.title3)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.secondary)
-                        .padding(.horizontal)
-                    
-                    Image("SplashImage2")
-                        .font(.system(size: 60))
-                        .foregroundColor(.blue)
-                        .padding(.top, 30)
-                    
-                    Button(action: {
-                    }) {
-                        Text("Başla")
-                            .font(.headline)
-                            .foregroundColor(/*@START_MENU_TOKEN@*/Color(red: 1.0, green: 0.9568627450980393, blue: 0.8)/*@END_MENU_TOKEN@*/)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.black)
-                            .cornerRadius(10)
+            Text("Masrafları Adil Bir Şekilde Paylaşın !")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.primary)
+                .padding(.horizontal)
+    
+            Image("SplashImage2")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 329, height: 249)
+                .padding(.top, 30)
+            
+            Text("Ev arkadaşlarınızla masrafları paylaşın ve herkes ne kadar ödediğini görsün")
+                .font(.title3)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.secondary)
+                .padding(.horizontal)
+            
+            Spacer(minLength: 80)
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground))
+        .overlay(alignment: .bottom) {
+            HStack {
+                Button(action: {
+                    dismiss()
+                }) {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("Geri")
                     }
-                    .padding(.top, 40)
-                    .padding(.horizontal)
+                    .padding()
+                    .foregroundColor(.secondary)
                 }
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(.systemBackground))
+                
+                Spacer()
+                
+                
+                Button(action: {
+                    isSplashScreen3Active = true
+                }) {
+                    HStack {
+                        Text("İleri")
+                        Image(systemName: "chevron.right")
+                    }
+                    .padding()
+                    .background(Color.orange)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                }
             }
+            .padding(.horizontal, 30)
+            .padding(.bottom, 20)
+        }
+        .navigationDestination(isPresented: $isSplashScreen3Active) {
+            SplashScreen3()
+        }
+        .navigationBarBackButtonHidden(true)
     }
-
+}
 
 #Preview {
     SplashScreen2()
 }
+  

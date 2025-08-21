@@ -1,62 +1,64 @@
-//
-//  SplashScreen2.swift
-//  billMate
-//
-//  Created by Dilara Baki on 19.08.2025.
-//
+// SplashScreen3.swift
 
 import SwiftUI
+import AuthenticationServices 
 
 struct SplashScreen3: View {
     var body: some View {
         VStack(spacing: 20) {
             
-                    Text("Ev Grubunu Kontrol Altına Al !")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.primary)
-                        .padding(.horizontal)
+            Spacer()
+                    .frame(height: 48)
             
-                    Text("Fatura, kira ve ortak masraflarınızı birkaç tıklamayla ekleyin")
-                        .font(.title3)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.secondary)
-                        .padding(.horizontal)
+            Text("Masrafları Adil Bir Şekilde Paylaşın !")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.primary)
+                .padding(.horizontal)
+    
+            Image("SplashImage3")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 329, height: 249)
+                .padding(.top, 30)
+            
+            Text("Ev arkadaşlarınızla masrafları paylaşın ve herkes ne kadar ödediğini görsün")
+                .font(.title3)
+                .multilineTextAlignment(.center)
+                .foregroundColor(.secondary)
+                .padding(.horizontal)
+            
+            Spacer()
+        }
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.systemBackground))
+        .overlay(alignment: .bottom) {
+            SignInWithAppleButton(
+                onRequest: { request in
+                    request.requestedScopes = [.fullName, .email]
+                },
+                onCompletion: { result in
+                    switch result {
                     
-                    Image("SplashImage3")
-                        .font(.system(size: 60))
-                        .foregroundColor(.blue)
-                        .padding(.top, 30)
-                    
-                    Button(action: {
-                    }) {
-                        Text("Grup Oluştur")
-                            .font(.headline)
-                            .foregroundColor(/*@START_MENU_TOKEN@*/Color(red: 1.0, green: 0.9568627450980393, blue: 0.8)/*@END_MENU_TOKEN@*/)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.black)
-                            .cornerRadius(10)
+                    case .success(_):
+                        print("Apple ile giriş başarılı!")
+                        
+                    case .failure(let error):
+                        print("Hata: \(error.localizedDescription)")
                     }
-                    Button(action: {
-                    }) {
-                    Text("Gruba Katıl")
-                    .font(.headline)
-                    .foregroundColor(/*@START_MENU_TOKEN@*/Color(red: 1.0, green: 0.9568627450980393, blue: 0.8)/*@END_MENU_TOKEN@*/)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.black)
-                    .cornerRadius(10)
-            }
-                    .padding(.horizontal)
                 }
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(.systemBackground))
-            }
+            )
+            .signInWithAppleButtonStyle(.black)
+            .frame(height: 55)
+            .cornerRadius(10)
+            .padding(.horizontal, 30)
+            .padding(.bottom, 40)
+        }
+        
     }
-
+}
 
 #Preview {
     SplashScreen3()
