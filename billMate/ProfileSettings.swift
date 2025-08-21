@@ -17,9 +17,9 @@ struct ProfileSettingsView: View {
             
             // Form Section
             VStack(spacing: 0) {
-                profileInfoRow(title: "Ad Soyad", value: "Example Example")
+                profileInfoRow(title: "Ad Soyad", value: "Ayşe Yılmaz")
                 Divider()
-                profileInfoRow(title: "Email", value: "example@gmail.com")
+                profileInfoRow(title: "Email", value: "ayseyilmaz@icloud.com")
                 Divider()
                 profileInfoRow(title: "Şifre", value: "●●●●●●", isSecure: true)
             }
