@@ -11,7 +11,6 @@ struct CreateHouseGroupView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 30) {
-                // Başlık bölümü
                 VStack(spacing: 16) {
                     Text("Ev Grubunuzu Oluşturun")
                         .font(.title2)
@@ -26,7 +25,6 @@ struct CreateHouseGroupView: View {
                 .padding(.top, 40)
                 
                 VStack(spacing: 25) {
-                    // Grup Adı alanı
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Grup Adı")
                             .font(.headline)
@@ -114,7 +112,6 @@ struct CreateHouseGroupView: View {
                 Spacer()
                 
                 Button(action: {
-                    // Grup oluşturma işlemi
                     isCreatingGroup = true
                     print("Grup adı: \(groupName), Kişi sayısı: \(selectedMemberCount)")
                 }) {

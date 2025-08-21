@@ -1,7 +1,6 @@
 import SwiftUI
-import LinkPresentation // Needed for the rich link preview
+import LinkPresentation
 
-// --- 1. DATA MODELS ---
 struct Housemate: Identifiable, Equatable {
     let id: UUID
     var name: String
@@ -15,9 +14,7 @@ struct CurrentUser {
     var isAdmin: Bool
 }
 
-// --- 2. SHARE SHEET HELPERS ---
 
-// A custom class to provide rich link data (title, URL) to the share sheet.
 class CustomLinkSource: NSObject, UIActivityItemSource {
     var title: String
     var url: URL
@@ -44,7 +41,6 @@ class CustomLinkSource: NSObject, UIActivityItemSource {
     }
 }
 
-// A SwiftUI wrapper for the UIKit UIActivityViewController.
 struct ActivityViewController: UIViewControllerRepresentable {
     var activityItems: [Any]
     var applicationActivities: [UIActivity]? = nil
@@ -57,8 +53,6 @@ struct ActivityViewController: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
-
-// --- 3. DETAIL VIEW ---
 struct HousemateDetailView: View {
     let housemate: Housemate
     let currentUser: CurrentUser
@@ -90,30 +84,21 @@ struct HousemateDetailView: View {
 }
 
 
-// --- 4. MAIN LIST VIEW (UPDATED) ---
 struct HousematesView: View {
     
-    // --- STATE MANAGEMENT ---
     @State private var housemates: [Housemate] = [
         Housemate(id: UUID(), name: "Example Example", email: "example@email.com", registrationDate: Date()),
         Housemate(id: UUID(), name: "Example 2", email: "example2@email.com", registrationDate: Date())
     ]
     
-    // The current user is now hardcoded.
-    // In a real app, you would get this data after a user logs in.
-    // Set `isAdmin` to `false` to test the non-admin experience.
     @State private var currentUser = CurrentUser(id: UUID(), name: "Admin User", isAdmin: true)
     
-    // State to control the presentation of the share sheet
     @State private var isShowingShareSheet = false
     
-    // The invitation link to be shared
     let inviteLink = URL(string: "https://appname.com/invite?code=12345ABCDE")!
 
-    // --- VIEW BODY ---
     var body: some View {
         NavigationView {
-            // The list of housemates.
             List {
                 ForEach(housemates) { housemate in
                     NavigationLink(destination: HousemateDetailView(
@@ -146,7 +131,6 @@ struct HousematesView: View {
                     }
                 }
             }
-            // This modifier presents the share sheet when isShowingShareSheet is true
             .sheet(isPresented: $isShowingShareSheet) {
                 let linkSource = CustomLinkSource(
                     title: "Uygulama Davet Linki",
@@ -158,7 +142,6 @@ struct HousematesView: View {
         .onAppear(perform: addUserToList)
     }
     
-    // --- ACTION FUNCTIONS ---
     private func deleteHousemate(_ housemateToDelete: Housemate) {
         housemates.removeAll { $0.id == housemateToDelete.id }
     }
@@ -171,7 +154,6 @@ struct HousematesView: View {
     }
 }
 
-// --- 5. PREVIEW ---
 struct HousematesView_Previews: PreviewProvider {
     static var previews: some View {
         HousematesView()

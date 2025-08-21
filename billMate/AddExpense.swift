@@ -1,6 +1,5 @@
 import SwiftUI
 
-// A reusable style for the form fields to maintain consistency.
 struct FormFieldStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -14,7 +13,6 @@ struct FormFieldStyle: ViewModifier {
     }
 }
 
-// A reusable style for the primary action button.
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -30,21 +28,18 @@ struct PrimaryButtonStyle: ButtonStyle {
 
 
 struct AddExpense: View {
-    // State variables to hold the form data
     @State private var selectedCategory = "Kategori"
     @State private var date = Date()
     @State private var amount = ""
     @State private var description = ""
     
-    // Sample categories for the picker
     private let categories = ["Food", "Transport", "Shopping", "Utilities", "Entertainment"]
 
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    
-                    // MARK: - Category and Date Fields
+         
                     HStack(spacing: 16) {
                         // Category Picker
                         VStack(alignment: .leading) {
@@ -68,7 +63,6 @@ struct AddExpense: View {
                             }
                         }
                         
-                        // Date Picker
                         VStack(alignment: .leading) {
                             Text("Tarih")
                                 .font(.subheadline)
@@ -78,8 +72,7 @@ struct AddExpense: View {
                                 .modifier(FormFieldStyle())
                         }
                     }
-                    
-                    // MARK: - Amount Field
+              
                     VStack(alignment: .leading) {
                         Text("Tutar")
                            .font(.subheadline)
@@ -88,8 +81,7 @@ struct AddExpense: View {
                             .keyboardType(.decimalPad)
                             .modifier(FormFieldStyle())
                     }
-                    
-                    // MARK: - Description Field
+                  
                     VStack(alignment: .leading) {
                         Text("Açıklama")
                             .font(.subheadline)
@@ -99,7 +91,6 @@ struct AddExpense: View {
                                 .frame(height: 120)
                                 .modifier(FormFieldStyle())
                             
-                            // Placeholder for TextEditor
                             if description.isEmpty {
                                 Text("Açıklama")
                                     .foregroundColor(.gray.opacity(0.6))
@@ -109,7 +100,6 @@ struct AddExpense: View {
                         }
                     }
                     
-                    // MARK: - Attachment Buttons
                     HStack(spacing: 16) {
                         Button(action: { /* Add photo action */ }) {
                             HStack {
@@ -132,13 +122,10 @@ struct AddExpense: View {
                         }
                     }
                     .foregroundColor(.black)
-                    
-                    // Spacer to push the button to the bottom
+                   
                     Spacer(minLength: 20)
 
-                    // MARK: - Submit Button
                     Button("Masraf Ekle") {
-                        // Action to add the expense
                         print("Expense Added")
                     }
                     .buttonStyle(PrimaryButtonStyle())

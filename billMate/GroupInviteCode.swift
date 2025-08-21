@@ -8,22 +8,18 @@ struct GroupInviteCodeView: View {
         VStack(spacing: 0) {
             Spacer()
             
-            // Main content
             VStack(spacing: 30) {
-                // Title
                 Text("Grup Davet Kodu")
                     .font(.system(size: 28, weight: .bold))
                     .foregroundColor(.black)
                     .multilineTextAlignment(.center)
                 
-                // Subtitle
                 Text("Ev arkadaşının gönderdiği davet kodunu gir! Evinizi kontrol etmeye başlayın!")
                     .font(.system(size: 16))
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 20)
                 
-                // Code input field
                 TextField("Kodu Girin", text: $inviteCode)
                     .font(.system(size: 17))
                     .padding(.horizontal, 16)
@@ -38,14 +34,11 @@ struct GroupInviteCodeView: View {
                     )
                     .padding(.horizontal, 20)
                 
-                // Timer
                 Text(timeRemaining)
                     .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.gray)
                 
-                // Verify button
                 Button(action: {
-                    // Verify code action
                 }) {
                     Text("Doğrula")
                         .font(.system(size: 17, weight: .medium))
@@ -63,7 +56,6 @@ struct GroupInviteCodeView: View {
             Spacer()
             Spacer()
             
-            // Home indicator
             RoundedRectangle(cornerRadius: 2.5)
                 .fill(Color.black)
                 .frame(width: 134, height: 5)

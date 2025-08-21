@@ -7,16 +7,13 @@ struct ForgotPasswordView: View {
         VStack(spacing: 0) {
             Spacer()
             
-            // Main content
             VStack(spacing: 30) {
-                // Title
                 Text("Şifremi Unuttum?")
                     .font(.system(size: 24, weight: .semibold))
                     .foregroundColor(.black)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 20)
                 
-                // Subtitle/Description
                 Text("Merak etme! Bu meydana gelir. Lütfen hesabınıza bağlı e-posta adresini girin.")
                     .font(.system(size: 16))
                     .foregroundColor(.gray)
@@ -24,7 +21,6 @@ struct ForgotPasswordView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 20)
                 
-                // Email input field
                 TextField("Emailinizi Girin", text: $email)
                     .font(.system(size: 16))
                     .keyboardType(.emailAddress)
@@ -37,9 +33,7 @@ struct ForgotPasswordView: View {
                     )
                     .padding(.horizontal, 20)
                 
-                // Send code button
                 Button(action: {
-                    // Send reset code action
                 }) {
                     Text("Kodu Gönder")
                         .font(.system(size: 16, weight: .medium))
@@ -57,14 +51,12 @@ struct ForgotPasswordView: View {
             Spacer()
             Spacer()
             
-            // Back to login link
             HStack {
                 Text("Şifrenizi hatırlıyor musunuz?")
                     .font(.system(size: 14))
                     .foregroundColor(.gray)
                 
                 Button(action: {
-                    // Navigate back to login
                 }) {
                     Text("Giriş Yap")
                         .font(.system(size: 14, weight: .medium))
@@ -73,7 +65,6 @@ struct ForgotPasswordView: View {
             }
             .padding(.bottom, 30)
             
-            // Home indicator
             RoundedRectangle(cornerRadius: 2.5)
                 .fill(Color.black)
                 .frame(width: 134, height: 5)

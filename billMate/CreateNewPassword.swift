@@ -7,10 +7,7 @@ struct CreateNewPasswordView: View {
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
-            
-            // Main content
-            VStack(spacing: 40) {
-                // Title and description
+                VStack(spacing: 40) {
                 VStack(spacing: 16) {
                     Text("Yeni şifre oluştur")
                         .font(.system(size: 28, weight: .bold))
@@ -25,9 +22,7 @@ struct CreateNewPasswordView: View {
                 }
                 .padding(.horizontal, 20)
                 
-                // Password input fields
                 VStack(spacing: 16) {
-                    // New password field
                     SecureField("Yeni Şifre", text: $newPassword)
                         .font(.system(size: 16))
                         .padding(.horizontal, 16)
@@ -41,7 +36,6 @@ struct CreateNewPasswordView: View {
                                 )
                         )
                     
-                    // Confirm password field
                     SecureField("Şifreyi Doğrula", text: $confirmPassword)
                         .font(.system(size: 16))
                         .padding(.horizontal, 16)
@@ -57,11 +51,8 @@ struct CreateNewPasswordView: View {
                 }
                 .padding(.horizontal, 20)
                 
-                // Reset password button
                 Button(action: {
-                    // Reset password action
                     if validatePasswords() {
-                        // Proceed with password reset
                         print("Password reset successful")
                     }
                 }) {
@@ -81,7 +72,6 @@ struct CreateNewPasswordView: View {
             Spacer()
             Spacer()
             
-            // Home indicator
             RoundedRectangle(cornerRadius: 2.5)
                 .fill(Color.black)
                 .frame(width: 134, height: 5)
@@ -92,7 +82,6 @@ struct CreateNewPasswordView: View {
     }
     
     private func validatePasswords() -> Bool {
-        // Add password validation logic here
         guard !newPassword.isEmpty && !confirmPassword.isEmpty else {
             return false
         }
@@ -101,7 +90,6 @@ struct CreateNewPasswordView: View {
             return false
         }
         
-        // Add additional password strength validation if needed
         return true
     }
 }

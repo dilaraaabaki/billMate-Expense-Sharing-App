@@ -17,15 +17,12 @@ struct TransactionItem {
     let userName: String
 }
 
-// MARK: - Bottom Navigation Bar
 struct BottomNavigationBar: View {
     @Binding var selectedTab: Int
     
     var body: some View {
         VStack(spacing: 0) {
-            // Navigation buttons
             HStack {
-                // Home
                 Button(action: { selectedTab = 0 }) {
                     VStack(spacing: 4) {
                         Image(systemName: selectedTab == 0 ? "house.fill" : "house")
@@ -35,7 +32,6 @@ struct BottomNavigationBar: View {
                 }
                 .frame(maxWidth: .infinity)
                 
-                // Search
                 Button(action: { selectedTab = 1 }) {
                     VStack(spacing: 4) {
                         Image(systemName: "magnifyingglass")
@@ -45,7 +41,6 @@ struct BottomNavigationBar: View {
                 }
                 .frame(maxWidth: .infinity)
                 
-                // Add (Plus button - larger and centered)
                 Button(action: { selectedTab = 2 }) {
                     ZStack {
                         Circle()
@@ -60,7 +55,6 @@ struct BottomNavigationBar: View {
                 }
                 .frame(maxWidth: .infinity)
                 
-                // Settings
                 Button(action: { selectedTab = 3 }) {
                     VStack(spacing: 4) {
                         Image(systemName: selectedTab == 3 ? "gearshape.fill" : "gearshape")
@@ -70,7 +64,6 @@ struct BottomNavigationBar: View {
                 }
                 .frame(maxWidth: .infinity)
                 
-                // Profile
                 Button(action: { selectedTab = 4 }) {
                     VStack(spacing: 4) {
                         Image(systemName: selectedTab == 4 ? "person.fill" : "person")
@@ -84,7 +77,6 @@ struct BottomNavigationBar: View {
             .padding(.horizontal, 20)
             .background(Color(.systemGray6))
             
-            // Home indicator
             RoundedRectangle(cornerRadius: 3)
                 .fill(Color.black)
                 .frame(width: 134, height: 5)
@@ -95,7 +87,6 @@ struct BottomNavigationBar: View {
     }
 }
 
-// MARK: - All Expenses View
 struct TumMasraflarView: View {
     @Environment(\.presentationMode) var presentationMode
     let transactions: [TransactionItem]
@@ -103,13 +94,9 @@ struct TumMasraflarView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            // Header with filter
             headerWithFilter
-            
-            // Date Range
             dateRangeView
             
-            // Expenses List
             ScrollView {
                 LazyVStack(spacing: 8) {
                     ForEach(transactions, id: \.id) { transaction in
@@ -172,7 +159,6 @@ struct TumMasraflarView: View {
     
     private func expenseRow(_ transaction: TransactionItem) -> some View {
         HStack(spacing: 12) {
-            // User Profile Image
             ZStack {
                 Circle()
                     .fill(Color(.systemGray5))
@@ -184,7 +170,6 @@ struct TumMasraflarView: View {
                     .foregroundColor(.primary)
             }
             
-            // Transaction Details
             VStack(alignment: .leading, spacing: 2) {
                 Text(transaction.name)
                     .font(.body)
@@ -198,7 +183,6 @@ struct TumMasraflarView: View {
             
             Spacer()
             
-            // Detail Button
             Button(action: {}) {
                 Text("Detay")
                     .font(.caption)
@@ -216,7 +200,6 @@ struct TumMasraflarView: View {
     }
 }
 
-// MARK: - Placeholder Views for other tabs
 struct SearchView: View {
     var body: some View {
         VStack {
@@ -273,7 +256,6 @@ struct ProfileView: View {
     }
 }
 
-// MARK: - Home Page
 struct HomePage: View {
     @State private var showAllExpenses = false
     @State private var expenseData = [
@@ -299,18 +281,15 @@ struct HomePage: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                // Header
                 headerView
                 
-                // Chart Section (Fixed at top)
                 chartSection
                     .padding(.horizontal, 20)
                     .padding(.top, 20)
                 
-                // Transactions Section (Scrollable)
                 transactionsSection
                     .padding(.top, 30)
-                    .padding(.bottom, 100) // Space for bottom navbar
+                    .padding(.bottom, 100)
             }
         }
         .background(Color(.systemGroupedBackground))
@@ -373,7 +352,6 @@ struct HomePage: View {
                 }
             }
             
-            // Legend
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 2), spacing: 10) {
                 ForEach(expenseData, id: \.category) { data in
                     HStack(spacing: 8) {
@@ -424,7 +402,6 @@ struct HomePage: View {
                     .foregroundColor(.primary)
             }
             
-            // Transaction Info
             VStack(alignment: .leading, spacing: 4) {
                 Text(transaction.name)
                     .font(.body)
@@ -449,7 +426,6 @@ struct HomePage: View {
             
             Spacer()
             
-            // Detail Button
             Button(action: {}) {
                 Text("Detay")
                     .font(.caption)
@@ -467,13 +443,11 @@ struct HomePage: View {
     }
 }
 
-// MARK: - Main Content Wrapper
 struct ContentView: View {
     @State private var selectedTab = 0
     
     var body: some View {
         ZStack {
-            // Main content based on selected tab
             Group {
                 switch selectedTab {
                 case 0:
@@ -492,7 +466,6 @@ struct ContentView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
-            // Bottom Navigation Bar
             VStack {
                 Spacer()
                 BottomNavigationBar(selectedTab: $selectedTab)
@@ -503,7 +476,6 @@ struct ContentView: View {
     }
 }
 
-// MARK: - App Entry Point
 struct HomePage_App: App {
     var body: some Scene {
         WindowGroup {
@@ -512,7 +484,6 @@ struct HomePage_App: App {
     }
 }
 
-// Preview
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

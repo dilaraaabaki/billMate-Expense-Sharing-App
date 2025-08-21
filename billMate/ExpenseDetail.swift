@@ -1,6 +1,5 @@
 import SwiftUI
 
-// A simple data model to represent an expense.
 struct Expense {
     let title: String
     let subTitle: String
@@ -13,7 +12,6 @@ struct Expense {
     let receiptImageName: String
 }
 
-// Dummy data for the preview
 let sampleExpense = Expense(
     title: "Masraf Detayları",
     subTitle: "Example",
@@ -23,11 +21,10 @@ let sampleExpense = Expense(
     time: "21:00",
     description: "Ocak Ayı Ev Kirası",
     categoryIconName: "house.fill",
-    receiptImageName: "receipt" // Make sure to add an image named "receipt" to your asset catalog
+    receiptImageName: "receipt"
 )
 
 
-// A reusable view for displaying a labeled detail item.
 struct DetailItem: View {
     let label: String
     let value: String
@@ -53,10 +50,7 @@ struct ExpenseDetail: View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 24) {
-                    // MARK: - Main Content Card
                     VStack(alignment: .leading, spacing: 20) {
-                        
-                        // MARK: - Header
                         HStack(alignment: .top) {
                             VStack(alignment: .leading) {
                                 Text(expense.title)
@@ -69,7 +63,6 @@ struct ExpenseDetail: View {
                             Spacer()
                             
                             VStack(spacing: 8) {
-                                // Category Icon
                                 Image(systemName: expense.categoryIconName)
                                     .font(.title)
                                     .foregroundColor(.orange)
@@ -77,7 +70,6 @@ struct ExpenseDetail: View {
                                     .background(Color.orange.opacity(0.2))
                                     .cornerRadius(16)
                                 
-                                // PDF Download Button
                                 Button(action: { /* PDF download action */ }) {
                                     Label("PDF İndir", systemImage: "icloud.and.arrow.down")
                                         .font(.caption)
@@ -89,7 +81,6 @@ struct ExpenseDetail: View {
                             }
                         }
                         
-                        // MARK: - Details Grid
                         HStack(alignment: .top, spacing: 16) {
                             VStack(alignment: .leading, spacing: 16) {
                                 DetailItem(label: "Kategori", value: expense.category)
@@ -104,13 +95,11 @@ struct ExpenseDetail: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         
-                        // Divider
+                       
                         Divider()
-                        
-                        // MARK: - Description
+                
                         DetailItem(label: "Açıklama", value: expense.description)
-                        
-                        // MARK: - Photo
+                     
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Fotoğraf")
                                 .font(.headline)
@@ -135,13 +124,11 @@ struct ExpenseDetail: View {
             .navigationTitle("Masraf Detayları")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                // Back button (leading)
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: { /* Back action */ }) {
                         Image(systemName: "chevron.left")
                     }
                 }
-                // Delete button (trailing)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { /* Delete action */ }) {
                         Image(systemName: "trash")
