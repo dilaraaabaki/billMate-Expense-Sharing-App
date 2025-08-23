@@ -1,12 +1,11 @@
 import SwiftUI
 
-struct NotificationSettingsView: View {
-    // State variables to hold the toggle values
+struct NotificationSettings: View {
     @State private var sendExpenseNotifications = true
     @State private var groupChangeNotifications = false
     @State private var appNotifications = false
     @State private var updateSettingsNotifications = false
-
+    
     var body: some View {
         Form {
             Section(header: Text("MASRAFLAR")) {
@@ -21,16 +20,22 @@ struct NotificationSettingsView: View {
                 Toggle("Bildirimler", isOn: $appNotifications)
                 Toggle("Güncelleme Ayarları", isOn: $updateSettingsNotifications)
             }
+            
+            Section(header: Text("UYGULAMA BİLDİRİMLERİ")) {
+                Toggle("Bildirimler", isOn: $appNotifications)
+                Toggle("Güncelleme Ayarları", isOn: $updateSettingsNotifications)
+                }
+            }
+            .navigationTitle("Bildirim Ayarları")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("Bildirim Ayarları")
-        .navigationBarTitleDisplayMode(.inline)
     }
-}
+    
+    struct NotificationSettingsView_Previews: PreviewProvider {
+        static var previews: some View {
+            NavigationView {
+                NotificationSettings()
+            }
+        }
+    }
 
-struct NotificationSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            NotificationSettingsView()
-        }
-    }
-}

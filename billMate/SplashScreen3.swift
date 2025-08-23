@@ -1,14 +1,11 @@
-// SplashScreen3.swift
-
 import SwiftUI
-import AuthenticationServices 
+import AuthenticationServices
 
 struct SplashScreen3: View {
     var body: some View {
         VStack(spacing: 20) {
-            
             Spacer()
-                    .frame(height: 48)
+                .frame(height: 48)
             
             Text("Masrafları Adil Bir Şekilde Paylaşın !")
                 .font(.largeTitle)
@@ -35,28 +32,17 @@ struct SplashScreen3: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemBackground))
         .overlay(alignment: .bottom) {
-            SignInWithAppleButton(
-                onRequest: { request in
-                    request.requestedScopes = [.fullName, .email]
-                },
-                onCompletion: { result in
-                    switch result {
-                    
-                    case .success(_):
-                        print("Apple ile giriş başarılı!")
-                        
-                    case .failure(let error):
-                        print("Hata: \(error.localizedDescription)")
-                    }
-                }
-            )
+            SignInWithAppleButton(.signIn) { request in
+                // Apple ile giriş isteği işleme kodu buraya gelecek
+            } onCompletion: { result in
+                // Apple ile giriş tamamlama işlemi kodu buraya gelecek
+            }
             .signInWithAppleButtonStyle(.black)
             .frame(height: 55)
             .cornerRadius(10)
             .padding(.horizontal, 30)
             .padding(.bottom, 40)
         }
-        
     }
 }
 

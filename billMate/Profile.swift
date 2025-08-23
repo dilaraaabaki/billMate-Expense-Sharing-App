@@ -9,10 +9,24 @@ struct Profile: View {
                 VStack(spacing: 30) {
                     profileSection
                     menuSection
-                    Spacer(minLength: 100)
                 }
                 .padding(.top, 30)
             }
+            
+            // Çıkış Yap butonunu en alta ekliyoruz
+            Button(action: {
+                print("Çıkış Yap tapped")
+            }) {
+                Text("Çıkış Yap")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.red)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color(.systemBackground))
+                    .cornerRadius(12)
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemGroupedBackground))
@@ -46,7 +60,7 @@ struct Profile: View {
     
     private var menuSection: some View {
         VStack(spacing: 0) {
-            NavigationLink(destination: ProfileSettingsView()) {
+            NavigationLink(destination: ProfileSettings()) { // Changed to ProfileSettings
                 menuItemContent(icon: "gearshape.fill", iconColor: .gray, title: "Profil Ayarları")
             }
             
@@ -55,31 +69,18 @@ struct Profile: View {
             Button(action: { print("Tapped: Grup Ayarları") }) {
                 menuItemContent(icon: "person.2.fill", iconColor: .orange, title: "Grup Ayarları")
             }
-
+            
             Divider().padding(.leading, 63)
-
+            
             NavigationLink(destination: NotificationSettingsView()) {
                 menuItemContent(icon: "bell.fill", iconColor: .red, title: "Bildirimler")
             }
             
             Divider().padding(.leading, 63)
-
+            
             Button(action: { print("Tapped: Gizlilik & Güvenlik") }) {
                 menuItemContent(icon: "lock.shield.fill", iconColor: .blue, title: "Gizlilik & Güvenlik")
             }
-            Button(action: {
-                print("Çıkış Yap tapped")
-            }) {
-                Text("Çıkış Yap")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.red)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(.secondarySystemGroupedBackground))
-                    .cornerRadius(12)
-            }
-            .padding(.horizontal)
-            .padding(.top,20)
         }
         .background(Color(.systemBackground))
         .cornerRadius(12)
@@ -102,9 +103,24 @@ struct Profile: View {
     }
 }
 
+struct ProfileSettings: View { // This is the correct struct name
+    var body: some View {
+        Text("Profil Ayarları Sayfası")
+            .navigationTitle("Profil Ayarları")
+    }
+}
+
+struct NotificationSettingsView: View {
+    var body: some View {
+        Text("Bildirim Ayarları Sayfası")
+            .navigationTitle("Bildirimler")
+    }
+}
+
 struct Profile_Previews: PreviewProvider {
     static var previews: some View {
-
-        Profile()
+        NavigationView {
+            Profile()
+        }
     }
 }
