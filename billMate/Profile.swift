@@ -14,16 +14,23 @@ struct Profile: View {
             }
             
             // Çıkış Yap butonunu en alta ekliyoruz
-            Button(action: {
-                print("Çıkış Yap tapped")
-            }) {
-                Text("Çıkış Yap")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.red)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color(.systemBackground))
-                    .cornerRadius(12)
+            VStack(spacing: 10) {
+                Button(action: {
+                    print("Çıkış Yap tapped")
+                }) {
+                    Text("Çıkış Yap")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(.red)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color(.systemBackground))
+                        .cornerRadius(12)
+                }
+                
+                // Version 1.0 metni eklendi
+                Text("Version 1.0")
+                    .font(.system(size: 12))
+                    .foregroundColor(.secondary)
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 20)

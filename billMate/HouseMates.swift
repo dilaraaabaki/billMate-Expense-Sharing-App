@@ -119,7 +119,7 @@ struct HousematesView: View {
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("Ev Arkadaşları")
+            .navigationTitle("Grup Ayarları")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
