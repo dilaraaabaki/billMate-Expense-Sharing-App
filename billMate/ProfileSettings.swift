@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct ProfileSettingsView: View {
+    @State private var showLogoutAlert = false
+    
     var body: some View {
         VStack(spacing: 0) {
             VStack {
@@ -29,7 +31,7 @@ struct ProfileSettingsView: View {
             Spacer()
             
             Button(action: {
-                print("Çıkış Yap tapped")
+                showLogoutAlert = true
             }) {
                 Text("Çıkış Yap")
                     .font(.system(size: 16, weight: .semibold))
@@ -46,6 +48,15 @@ struct ProfileSettingsView: View {
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Profil Ayarları")
         .navigationBarTitleDisplayMode(.inline)
+        .alert("Çıkış Yap", isPresented: $showLogoutAlert) {
+            Button("İptal", role: .cancel) { }
+            Button("Çıkış Yap", role: .destructive) {
+                // Çıkış yapma işlemleri buraya gelecek
+                print("Kullanıcı çıkış yaptı")
+            }
+        } message: {
+            Text("Hesabınızdan çıkış yapmak istediğinizden emin misiniz?")
+        }
     }
     
     private func profileInfoRow(title: String, value: String, isSecure: Bool = false) -> some View {
@@ -65,10 +76,9 @@ struct ProfileSettingsView: View {
                 .foregroundColor(Color(.systemGray3))
         }
         .padding()
-        .contentShape(Rectangle()) 
+        .contentShape(Rectangle())
     }
 }
-
 
 struct ProfileSettingsView_Previews: PreviewProvider {
     static var previews: some View {

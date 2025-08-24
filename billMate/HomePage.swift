@@ -18,37 +18,6 @@ struct TransactionItem: Identifiable {
     let userName: String
 }
 
-struct ContentView: View {
-    @State private var selectedTab = 0
-    
-    var body: some View {
-        mainContent
-            .overlay(alignment: .bottom) {
-                BottomNavigationBar(selectedTab: $selectedTab)
-            }
-            .ignoresSafeArea(.all, edges: .bottom)
-    }
-    
-    @ViewBuilder
-    private var mainContent: some View {
-        Group {
-            switch selectedTab {
-            case 0:
-                HomePage()
-            case 1:
-                SearchView()
-            case 2:
-                AddExpenseView()
-            case 3:
-                SettingsView()
-            case 4:
-                ProfileView()
-            default:
-                HomePage()
-            }
-        }
-    }
-}
 struct HomePage: View {
     @State private var showAllExpenses = false
     @State private var expenseData = [
@@ -149,10 +118,44 @@ struct HomePage: View {
         .cornerRadius(12)
     }
 }
+
+struct ContentView: View {
+    @State private var selectedTab = 0
+    
+    var body: some View {
+        mainContent
+            .overlay(alignment: .bottom) {
+                BottomNavigationBar(selectedTab: $selectedTab)
+            }
+            .ignoresSafeArea(.all, edges: .bottom)
+    }
+    
+    @ViewBuilder
+    private var mainContent: some View {
+        Group {
+            switch selectedTab {
+            case 0:
+                HomePage()
+            case 1:
+                SearchView()
+            case 2:
+                AddExpenseView()
+            case 3:
+                SettingsView()
+            case 4:
+                ProfileView()
+            default:
+                HomePage()
+            }
+        }
+    }
+}
+
 struct SearchView: View { var body: some View { Text("Arama Sayfası") } }
 struct AddExpenseView: View { var body: some View { Text("Masraf Ekle Sayfası") } }
 struct SettingsView: View { var body: some View { Text("Ayarlar Sayfası") } }
 struct ProfileView: View { var body: some View { Text("Profil Sayfası") } }
+
 struct BottomNavigationBar: View {
     @Binding var selectedTab: Int
     

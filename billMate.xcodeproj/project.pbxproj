@@ -12,6 +12,9 @@
 		74DC33422E5B7F2200B02077 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 74DC33412E5B7F2200B02077 /* Realtime */; };
 		74DC33442E5B7F2200B02077 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 74DC33432E5B7F2200B02077 /* Supabase */; };
 		74DC33462E5B806900B02077 /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DC33452E5B806900B02077 /* SupabaseManager.swift */; };
+		74DC33482E5BA38C00B02077 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DC33472E5BA38C00B02077 /* AuthenticationManager.swift */; };
+		74DC334A2E5BA3A200B02077 /* AppleSignInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DC33492E5BA3A200B02077 /* AppleSignInService.swift */; };
+		74DC334C2E5BA3B900B02077 /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DC334B2E5BA3B900B02077 /* SupabaseService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +36,9 @@
 
 /* Begin PBXFileReference section */
 		74DC33452E5B806900B02077 /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
+		74DC33472E5BA38C00B02077 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		74DC33492E5BA3A200B02077 /* AppleSignInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInService.swift; sourceTree = "<group>"; };
+		74DC334B2E5BA3B900B02077 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
 		74DF8AC62E53EE1300C1AC9B /* billMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = billMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74DF8AD32E53EE1500C1AC9B /* billMateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = billMateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		74DF8ADD2E53EE1500C1AC9B /* billMateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = billMateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +94,9 @@
 		74DF8ABD2E53EE1300C1AC9B = {
 			isa = PBXGroup;
 			children = (
+				74DC334B2E5BA3B900B02077 /* SupabaseService.swift */,
+				74DC33492E5BA3A200B02077 /* AppleSignInService.swift */,
+				74DC33472E5BA38C00B02077 /* AuthenticationManager.swift */,
 				74DC33452E5B806900B02077 /* SupabaseManager.swift */,
 				74DF8AC82E53EE1300C1AC9B /* billMate */,
 				74DF8AD62E53EE1500C1AC9B /* billMateTests */,
@@ -257,6 +266,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74DC334A2E5BA3A200B02077 /* AppleSignInService.swift in Sources */,
+				74DC33482E5BA38C00B02077 /* AuthenticationManager.swift in Sources */,
+				74DC334C2E5BA3B900B02077 /* SupabaseService.swift in Sources */,
 				74DC33462E5B806900B02077 /* SupabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
