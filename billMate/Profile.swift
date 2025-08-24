@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct Profile: View {
+    @State private var showingLogoutAlert = false
+    
     var body: some View {
         VStack(spacing: 0) {
             headerView
@@ -16,7 +18,7 @@ struct Profile: View {
             // Çıkış Yap butonunu en alta ekliyoruz
             VStack(spacing: 10) {
                 Button(action: {
-                    print("Çıkış Yap tapped")
+                    showingLogoutAlert = true
                 }) {
                     Text("Çıkış Yap")
                         .font(.system(size: 16, weight: .semibold))
@@ -38,6 +40,14 @@ struct Profile: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemGroupedBackground))
         .navigationBarHidden(true)
+        .alert("Çıkış Yap", isPresented: $showingLogoutAlert) {
+            Button("İptal", role: .cancel) { }
+            Button("Çıkış Yap", role: .destructive) {
+                performLogout()
+            }
+        } message: {
+            Text("Hesabınızdan çıkış yapmak istediğinizden emin misiniz?")
+        }
     }
     
     private var headerView: some View {
@@ -67,25 +77,37 @@ struct Profile: View {
     
     private var menuSection: some View {
         VStack(spacing: 0) {
-            NavigationLink(destination: ProfileSettings()) { // Changed to ProfileSettings
+            Button(action: {
+                // Navigate to ProfileSettings - You need to implement navigation here
+                print("Navigating to Profil Ayarları")
+            }) {
                 menuItemContent(icon: "gearshape.fill", iconColor: .gray, title: "Profil Ayarları")
             }
             
             Divider().padding(.leading, 63)
             
-            Button(action: { print("Tapped: Grup Ayarları") }) {
+            Button(action: {
+                // Navigate to HouseMates - You need to implement navigation here
+                print("Navigating to Grup Ayarları")
+            }) {
                 menuItemContent(icon: "person.2.fill", iconColor: .orange, title: "Grup Ayarları")
             }
             
             Divider().padding(.leading, 63)
             
-            NavigationLink(destination: NotificationSettingsView()) {
+            Button(action: {
+                // Navigate to NotificationSettings - You need to implement navigation here
+                print("Navigating to Bildirimler")
+            }) {
                 menuItemContent(icon: "bell.fill", iconColor: .red, title: "Bildirimler")
             }
             
             Divider().padding(.leading, 63)
             
-            Button(action: { print("Tapped: Gizlilik & Güvenlik") }) {
+            Button(action: {
+                // Navigate to PrivacyPolicy - You need to implement navigation here
+                print("Navigating to Gizlilik & Güvenlik")
+            }) {
                 menuItemContent(icon: "lock.shield.fill", iconColor: .blue, title: "Gizlilik & Güvenlik")
             }
         }
@@ -108,19 +130,11 @@ struct Profile: View {
         .padding(.vertical, 15)
         .contentShape(Rectangle())
     }
-}
-
-struct ProfileSettings: View { // This is the correct struct name
-    var body: some View {
-        Text("Profil Ayarları Sayfası")
-            .navigationTitle("Profil Ayarları")
-    }
-}
-
-struct NotificationSettingsView: View {
-    var body: some View {
-        Text("Bildirim Ayarları Sayfası")
-            .navigationTitle("Bildirimler")
+    
+    private func performLogout() {
+        // Çıkış yapma işlemini burada gerçekleştirin
+        print("Kullanıcı çıkış yaptı")
+        // Burada login sayfasına yönlendirme yapabilirsiniz
     }
 }
 

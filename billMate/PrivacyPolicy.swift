@@ -208,12 +208,10 @@ struct PrivacyPolicy: View {
     }
     
     private func sharePolicy() {
-        // Implement sharing functionality
         print("Share policy tapped")
     }
     
     private func printPolicy() {
-        // Implement printing functionality
         print("Print policy tapped")
     }
 }

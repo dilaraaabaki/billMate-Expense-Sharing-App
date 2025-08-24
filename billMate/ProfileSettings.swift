@@ -15,7 +15,6 @@ struct ProfileSettingsView: View {
             }
             .padding(.vertical, 20)
             
-            // Form Section
             VStack(spacing: 0) {
                 profileInfoRow(title: "Ad Soyad", value: "Ayşe Yılmaz")
                 Divider()
@@ -71,7 +70,6 @@ struct ProfileSettingsView: View {
 }
 
 
-// MARK: - Preview
 struct ProfileSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {

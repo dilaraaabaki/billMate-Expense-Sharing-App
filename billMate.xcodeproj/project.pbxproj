@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		747E4E9C2E564DA8006E946D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 747E4E9B2E564DA8006E946D /* FirebaseAnalytics */; };
-		747E4E9E2E564DA8006E946D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 747E4E9D2E564DA8006E946D /* FirebaseAuth */; };
-		747E4EA02E564DA8006E946D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 747E4E9F2E564DA8006E946D /* FirebaseFirestore */; };
-		747E4EA22E564DA8006E946D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 747E4EA12E564DA8006E946D /* FirebaseStorage */; };
+		74DC333E2E5B7F2200B02077 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 74DC333D2E5B7F2200B02077 /* Auth */; };
+		74DC33402E5B7F2200B02077 /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 74DC333F2E5B7F2200B02077 /* PostgREST */; };
+		74DC33422E5B7F2200B02077 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = 74DC33412E5B7F2200B02077 /* Realtime */; };
+		74DC33442E5B7F2200B02077 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 74DC33432E5B7F2200B02077 /* Supabase */; };
+		74DC33462E5B806900B02077 /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DC33452E5B806900B02077 /* SupabaseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		74DC33452E5B806900B02077 /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
 		74DF8AC62E53EE1300C1AC9B /* billMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = billMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74DF8AD32E53EE1500C1AC9B /* billMateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = billMateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		74DF8ADD2E53EE1500C1AC9B /* billMateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = billMateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,10 +61,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				747E4E9C2E564DA8006E946D /* FirebaseAnalytics in Frameworks */,
-				747E4EA22E564DA8006E946D /* FirebaseStorage in Frameworks */,
-				747E4E9E2E564DA8006E946D /* FirebaseAuth in Frameworks */,
-				747E4EA02E564DA8006E946D /* FirebaseFirestore in Frameworks */,
+				74DC33422E5B7F2200B02077 /* Realtime in Frameworks */,
+				74DC33402E5B7F2200B02077 /* PostgREST in Frameworks */,
+				74DC33442E5B7F2200B02077 /* Supabase in Frameworks */,
+				74DC333E2E5B7F2200B02077 /* Auth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +88,7 @@
 		74DF8ABD2E53EE1300C1AC9B = {
 			isa = PBXGroup;
 			children = (
+				74DC33452E5B806900B02077 /* SupabaseManager.swift */,
 				74DF8AC82E53EE1300C1AC9B /* billMate */,
 				74DF8AD62E53EE1500C1AC9B /* billMateTests */,
 				74DF8AE02E53EE1500C1AC9B /* billMateUITests */,
@@ -123,10 +126,10 @@
 			);
 			name = billMate;
 			packageProductDependencies = (
-				747E4E9B2E564DA8006E946D /* FirebaseAnalytics */,
-				747E4E9D2E564DA8006E946D /* FirebaseAuth */,
-				747E4E9F2E564DA8006E946D /* FirebaseFirestore */,
-				747E4EA12E564DA8006E946D /* FirebaseStorage */,
+				74DC333D2E5B7F2200B02077 /* Auth */,
+				74DC333F2E5B7F2200B02077 /* PostgREST */,
+				74DC33412E5B7F2200B02077 /* Realtime */,
+				74DC33432E5B7F2200B02077 /* Supabase */,
 			);
 			productName = billMate;
 			productReference = 74DF8AC62E53EE1300C1AC9B /* billMate.app */;
@@ -211,7 +214,7 @@
 			mainGroup = 74DF8ABD2E53EE1300C1AC9B;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				747E4E9A2E564DA8006E946D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				74DC333C2E5B7F2200B02077 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 74DF8AC72E53EE1300C1AC9B /* Products */;
@@ -254,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74DC33462E5B806900B02077 /* SupabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,36 +582,36 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		747E4E9A2E564DA8006E946D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		74DC333C2E5B7F2200B02077 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			repositoryURL = "https://github.com/supabase/supabase-swift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 12.1.0;
+				minimumVersion = 2.5.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		747E4E9B2E564DA8006E946D /* FirebaseAnalytics */ = {
+		74DC333D2E5B7F2200B02077 /* Auth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 747E4E9A2E564DA8006E946D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
+			package = 74DC333C2E5B7F2200B02077 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
 		};
-		747E4E9D2E564DA8006E946D /* FirebaseAuth */ = {
+		74DC333F2E5B7F2200B02077 /* PostgREST */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 747E4E9A2E564DA8006E946D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
+			package = 74DC333C2E5B7F2200B02077 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
 		};
-		747E4E9F2E564DA8006E946D /* FirebaseFirestore */ = {
+		74DC33412E5B7F2200B02077 /* Realtime */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 747E4E9A2E564DA8006E946D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
+			package = 74DC333C2E5B7F2200B02077 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Realtime;
 		};
-		747E4EA12E564DA8006E946D /* FirebaseStorage */ = {
+		74DC33432E5B7F2200B02077 /* Supabase */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 747E4E9A2E564DA8006E946D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
+			package = 74DC333C2E5B7F2200B02077 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
