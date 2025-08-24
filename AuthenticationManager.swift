@@ -1,92 +1,62 @@
-//
-//  AuthenticationManager.swift
-//  billMate
-//
-//  Created by Dilara Baki on 24.08.2025.
-//
-
+import Supabase
 import Foundation
-import SwiftUI
-import AuthenticationServices
-import Combine
 
-@MainActor
 class AuthenticationManager: ObservableObject {
+    static let shared = AuthenticationManager()
+    private let client = SupabaseManager.shared.client
     
-    // MARK: - Published Properties
-    @Published var isLoggedIn = false
-    @Published var showAlert = false
-    @Published var alertMessage = ""
-    @Published var isLoading = false
-    
-    // MARK: - Private Properties
-    private let appleSignInService = AppleSignInService()
-    private let supabaseService = SupabaseService()
-    private var cancellables = Set<AnyCancellable>()
+    @Published var currentUser: User?
+    @Published var isAuthenticated = false
     
     init() {
-        setupBindings()
+        checkCurrentUser()
     }
     
-    // MARK: - Setup
-    private func setupBindings() {
-        // Apple Sign-In Service bindings
-        appleSignInService.$showAlert
-            .assign(to: &$showAlert)
-        
-        appleSignInService.$alertMessage
-            .assign(to: &$alertMessage)
-        
-        appleSignInService.$isLoading
-            .assign(to: &$isLoading)
-        
-        // Supabase Service bindings
-        supabaseService.$isLoggedIn
-            .assign(to: &$isLoggedIn)
-        
-        supabaseService.$showAlert
-            .sink { [weak self] showAlert in
-                if showAlert {
-                    self?.showAlert = true
-                }
-            }
-            .store(in: &cancellables)
-        
-        supabaseService.$alertMessage
-            .sink { [weak self] message in
-                if !message.isEmpty {
-                    self?.alertMessage = message
-                }
-            }
-            .store(in: &cancellables)
-    }
-    
-    // MARK: - Public Methods
-    func handleSignInRequest(_ request: ASAuthorizationAppleIDRequest) {
-        appleSignInService.configureRequest(request)
-    }
-    
-    func handleSignInCompletion(_ result: Result<ASAuthorization, Error>) {
-        appleSignInService.handleCompletion(result) { [weak self] appleSignInData in
-            // Forward to Supabase authentication
-            self?.supabaseService.authenticateWithApple(data: appleSignInData)
+    func checkCurrentUser() {
+        if let user = client.auth.currentUser {
+            self.currentUser = user
+            self.isAuthenticated = true
         }
     }
     
-    // ADDED: Public method to check authentication status
-    func checkAuthenticationStatus() async {
-        await supabaseService.checkAuthenticationStatus()
+    // Apple Sign-In ile giriş
+    func signInWithApple(idToken: String, nonce: String) async throws -> Session {
+        return try await client.auth.signInWithIdToken(
+            credentials: .init(
+                provider: .apple,
+                idToken: idToken,
+                nonce: nonce
+            )
+        )
     }
     
-    func logout() {
-        Task {
-            await supabaseService.logout()
-            isLoggedIn = false
+    // Email ile giriş
+    func signInWithEmail(email: String, password: String) async throws -> Session {
+        return try await client.auth.signIn(
+            email: email,
+            password: password
+        )
+    }
+    
+    // Kayıt ol
+    func signUp(email: String, password: String) async throws -> AuthResponse {
+        return try await client.auth.signUp(
+            email: email,
+            password: password
+        )
+    }
+    
+    // Çıkış yap
+    func signOut() async throws {
+        try await client.auth.signOut()
+        DispatchQueue.main.async {
+            self.currentUser = nil
+            self.isAuthenticated = false
         }
     }
     
-    func dismissAlert() {
-        showAlert = false
-        alertMessage = ""
+    // Şifre sıfırlama
+    func resetPassword(email: String) async throws {
+        try await client.auth.resetPasswordForEmail(email)
     }
 }

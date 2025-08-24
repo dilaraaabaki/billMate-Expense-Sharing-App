@@ -1,20 +1,32 @@
-//
-//  SupabaseManager.swift
-//  billMate
-//
-//  Created by Dilara Baki on 24.08.2025.
-//
-
-import Foundation
 import Supabase
+import Foundation
 
-class SupabaseManager {
+class SupabaseManager: ObservableObject {
     static let shared = SupabaseManager()
     
-    let client = SupabaseClient(
-        supabaseURL: URL(string: "YOUR_SUPABASE_URL")!,
-        supabaseKey: "YOUR_SUPABASE_ANON_KEY"
-    )
+    let client: SupabaseClient
     
-    private init() {}
+    private init() {
+        let supabaseURL = URL(string: "https://ghrffsheregoodderrec.supabase.co")!
+        let supabaseKey = "SUPABASE_CLIENT_API_KEY" // Info.plist'ten alınacak
+        
+        self.client = SupabaseClient(
+            supabaseURL: supabaseURL,
+            supabaseKey: supabaseKey
+        )
+    }
+    
+    // Real-time subscription için
+    func setupRealtimeListener() {
+        let channel = client.realtime.channel("db-changes")
+        
+        channel.on(.all) { message in
+            print("Real-time update: \(message)")
+            // Burada gelen verileri işle
+        }
+        
+        Task {
+            try await channel.subscribe()
+        }
+    }
 }
