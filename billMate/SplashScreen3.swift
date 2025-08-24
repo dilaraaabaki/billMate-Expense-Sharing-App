@@ -3,45 +3,42 @@ import AuthenticationServices
 
 struct SplashScreen3: View {
     var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
-                .frame(height: 48)
+        VStack(spacing: 32) {
             
-            Text("Masrafları Adil Bir Şekilde Paylaşın !")
+            Text("Masrafları Adil Bir Şekilde Paylaşın!")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.primary)
-                .padding(.horizontal)
+                .padding(.horizontal, 20)
+                .padding(.top, 40)
     
             Image("SplashImage3")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 329, height: 249)
-                .padding(.top, 30)
+                .frame(width: 300, height: 230)
+                .padding(.vertical, 16)
             
             Text("Ev arkadaşlarınızla masrafları paylaşın ve herkes ne kadar ödediğini görsün")
                 .font(.title3)
                 .multilineTextAlignment(.center)
                 .foregroundColor(.secondary)
-                .padding(.horizontal)
+                .padding(.horizontal, 24)
             
-            Spacer()
+            Spacer(minLength: 60)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemBackground))
         .overlay(alignment: .bottom) {
             SignInWithAppleButton(.signIn) { request in
-                // Apple ile giriş isteği işleme kodu buraya gelecek
             } onCompletion: { result in
-                // Apple ile giriş tamamlama işlemi kodu buraya gelecek
             }
             .signInWithAppleButtonStyle(.black)
-            .frame(height: 55)
-            .cornerRadius(10)
-            .padding(.horizontal, 30)
-            .padding(.bottom, 40)
+            .frame(height: 50)
+            .cornerRadius(25)
+            .padding(.horizontal, 24)
+            .padding(.bottom, 44)
         }
     }
 }
