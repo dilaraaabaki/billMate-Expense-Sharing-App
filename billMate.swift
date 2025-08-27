@@ -1,11 +1,19 @@
+//
+//  billMate.swift
+//  billMate
+//
+//  Created by Dilara Baki on 26.08.2025.
+//
+
+
 import Foundation
 import Supabase
 
-// BU SATIRLARI SİL! (Aynı modül içinde olduğun için gerek yok)
-// @preconcurrency import struct bilibate.Expense
-// @preconcurrency import struct bilibate.Group
-// @preconcurrency import struct bilibate.GroupMember
-// @preconcurrency import enum bilibate.SupabaseServiceError
+// Bu importları ekleyerek Models.swift'teki tanımları kullanabilirsin
+@preconcurrency import struct billMate.Expense
+@preconcurrency import struct billMate.Group
+@preconcurrency import struct billMate.GroupMember
+@preconcurrency import enum billMate.SupabaseServiceError
 
 class SupabaseService {
     static let shared = SupabaseService()
