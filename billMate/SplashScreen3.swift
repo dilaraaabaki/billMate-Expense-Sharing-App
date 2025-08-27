@@ -2,7 +2,10 @@ import SwiftUI
 import AuthenticationServices
 
 struct SplashScreen3: View {
-    @StateObject private var authManager = AuthenticationManager()
+    @State private var isLoading = false
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    @State private var isLoggedIn = false
     
     var body: some View {
         VStack(spacing: 32) {
@@ -35,7 +38,7 @@ struct SplashScreen3: View {
         .overlay(alignment: .bottom) {
             VStack(spacing: 16) {
                 // Loading indicator
-                if authManager.isLoading {
+                if isLoading {
                     HStack {
                         ProgressView()
                             .scaleEffect(0.8)
@@ -46,37 +49,34 @@ struct SplashScreen3: View {
                     .padding(.bottom, 8)
                 }
                 
-                // Apple Sign-In Button
+                // Apple Sign-In Button (UI only - no functionality)
                 SignInWithAppleButton(.signIn) { request in
-                    authManager.handleSignInRequest(request)
+                    // Placeholder for sign-in request
+                    isLoading = true
                 } onCompletion: { result in
-                    authManager.handleSignInCompletion(result)
+                    // Placeholder for completion handler
+                    isLoading = false
                 }
                 .signInWithAppleButtonStyle(.black)
                 .frame(height: 50)
                 .cornerRadius(25)
-                .disabled(authManager.isLoading)
-                .opacity(authManager.isLoading ? 0.6 : 1.0)
+                .disabled(isLoading)
+                .opacity(isLoading ? 0.6 : 1.0)
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 44)
         }
-        .alert("Giriş Durumu", isPresented: $authManager.showAlert) {
+        .alert("Giriş Durumu", isPresented: $showAlert) {
             Button("Tamam", role: .cancel) {
-                authManager.dismissAlert()
+                showAlert = false
             }
         } message: {
-            Text(authManager.alertMessage)
+            Text(alertMessage)
         }
-        .fullScreenCover(isPresented: $authManager.isLoggedIn) {
-            // HomePage view instead of the temporary success screen
-            ContentView() // Replace with your actual home page
-        }
-        .onAppear {
-            // Uygulama açılışında auth durumunu kontrol et
-            Task {
-                await authManager.checkAuthenticationStatus() // FIXED: Use the public method instead of direct access
-            }
+        .fullScreenCover(isPresented: $isLoggedIn) {
+            // Placeholder for home page
+            Text("Ana Sayfa")
+                .font(.title)
         }
     }
 }
